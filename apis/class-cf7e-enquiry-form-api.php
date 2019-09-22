@@ -54,7 +54,7 @@ class CF7E_Register_Form_Api {
 	 */
 	function cf7e_rest_get_cases_endpoint_handler( WP_REST_Request $request ) {
 
-		$response      = [];
+		$response      = false;
 		$parameters    = $request->get_params();
 
 		// Error Handling.
@@ -101,7 +101,9 @@ class CF7E_Register_Form_Api {
 				array( 'status' => 400 )
 			);
 			return $error;
-		}
+		}	
+
+		$response = $this->cf7e_send_email( $cf7e_name, $cf7e_email, $cf7e_subject, $cf7e_message  );
 
 //		$response_received_after_saving_into_database = ...;
 
@@ -116,6 +118,18 @@ class CF7E_Register_Form_Api {
 //		}
 
 		return new WP_REST_Response( $response );
+	}
+
+	function cf7e_send_email( $name, $email, $subject, $body ){
+
+		$email_recipient = get_option("admin_email");
+		$email_subject = "New enquiry | $subject";
+
+		$email_body = "From: $name <$email>\n";
+		$email_body .= "Subject: $subject\n";
+		$email_body .= $body;
+
+		return wp_mail( $email_recipient, $email_subject, $email_body );
 	}
 
 }
