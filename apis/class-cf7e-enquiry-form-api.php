@@ -54,7 +54,7 @@ class CF7E_Register_Form_Api {
 	 */
 	function cf7e_rest_get_cases_endpoint_handler( WP_REST_Request $request ) {
 
-		$response      = false;
+		$response      = [];
 		$parameters    = $request->get_params();
 
 		// Error Handling.
@@ -103,19 +103,17 @@ class CF7E_Register_Form_Api {
 			return $error;
 		}	
 
-		$response = $this->cf7e_send_email( $cf7e_name, $cf7e_email, $cf7e_subject, $cf7e_message  );
+		$is_email_sent = $this->cf7e_send_email( $cf7e_name, $cf7e_email, $cf7e_subject, $cf7e_message  );
 
-//		$response_received_after_saving_into_database = ...;
-
-		// If data saved into database.
-//		if ( ! is_wp_error( $response_received_after_saving_into_database ) && ! empty( $response_received_after_saving_into_database ) ) {
-//			$response['code'] = 200;
-//			$response['success'] = true;
-//		} else {
-//			// If posts not found.
-//			$error->add( 406, __( 'Error registration could not be submitted', 'contact-form-7-endpoints' ) );
-//			return $error;
-//		}
+		// If email sent
+		if ( ! empty( $is_email_sent ) ) {
+			$response['code'] = 200;
+			$response['success'] = true;
+		} else {
+			// If posts not found.
+			$error->add( 406, __( 'Error while sending email', 'contact-form-7-endpoints' ) );
+			return $error;
+		}
 
 		return new WP_REST_Response( $response );
 	}
