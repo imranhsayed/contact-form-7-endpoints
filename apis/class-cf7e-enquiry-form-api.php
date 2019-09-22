@@ -107,7 +107,7 @@ class CF7E_Register_Form_Api {
 
 		// If email sent
 		if ( ! empty( $is_email_sent ) ) {
-			$response['code'] = 200;
+			$response['status'] = 200;
 			$response['success'] = true;
 		} else {
 			// If posts not found.
@@ -125,7 +125,7 @@ class CF7E_Register_Form_Api {
 
 		$email_body = "From: $name <$email>\n";
 		$email_body .= "Subject: $subject\n";
-		$email_body .= $body;
+		$email_body .= "Body: \n".$body;
 
 		return wp_mail( $email_recipient, $email_subject, $email_body );
 	}
