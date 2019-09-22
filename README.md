@@ -1,16 +1,16 @@
 # CONTACT FORM 7 ENDPOINT
 
-> This plugin provides you different endpoints for Contact Form 7 registration using WordPress REST API
+> This plugin provides you different endpoints for Contact Form 7 enquiry form using WordPress REST API
 
-* :bust_in_silhouette: Register Endpoint
+* :bust_in_silhouette: Enquiry Form Endpoint
 
 ## Register a new user endpoint:
 
-When we access the end point on URI: `http://your-domain/wp-json/wp/v2/rae/post/create`,
-and we pass our 'user_id', 'title' and 'content' in the body using postman, we get the following with a status code:
-* New user data is created.
-* Error when fields are empty or if the user with the given id does not have capability to register user
-* Any other error.
+When we access the end point on URI: `http://example.com/wp-json/cf7e/v1/enquiry`,
+and we pass our 'name', 'email', 'subject', 'message' both optionally in query params of the request., we get the following with a status code:
+* 200: Email is sent.
+* 400: Error when fields are empty or if the user with the given id does not have capability to register user
+* 404: Any other error.
 
 ## Getting Started :clipboard:
 
@@ -26,16 +26,11 @@ You need to have any WordPress theme activated on your WordPress project, which 
 2. Activate the plugin through the 'Plugins' screen in WordPress
 
 ## Use :ski:
+endpoint : `http://example.com/wp-json/cf7e/v1/enquiry`
 
 > Params to be sent in the body
-`username(String)` and `password(String)`
+`name(String)`, `email(String)`, `subject(String)` and `message(String)`
 Return Value: `User Object or Error (Object)`
-
-* :page_with_curl: Create Post End Point `http://your-domain/wp-json/wp/v2/rae/post/create`
-
-> Params to be sent in the body
-`user_id(Int)`, `title(String)` and `content(String)`
-Return Value: `Object with post ID and status or Error (Object)`
 
 ## Contributing :busts_in_silhouette:
 

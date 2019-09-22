@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CONTACT FORM 7 ENDPOINTS
  * Plugin URI: https://github.com/imranhsayed/contact-form-7-endpoints
- * Description: This plugin provides you different endpoints for Contact form 7 using WordPress REST API
+ * Description: This plugin provides you different endpoints for Contact form 7 enquiry form using WordPress REST API
  * Version: 1.0.0
  * Author: Imran Sayed, Smit patadiya
  * Author URI: https://codeytek.com
@@ -20,4 +20,4 @@ define( 'CF7E_TEMPLATE_PATH', plugin_dir_path( __FILE__ ) . 'templates/' );
 define( 'CF7E_PLUGIN_PATH', __FILE__ );
 
 // File Includes
-include_once 'apis/class-cf7e-register-posts-api.php';
+include_once 'apis/class-cf7e-enquiry-form-api.php';
