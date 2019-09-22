@@ -101,21 +101,33 @@ class CF7E_Register_Form_Api {
 				array( 'status' => 400 )
 			);
 			return $error;
+		}	
+
+		$is_email_sent = $this->cf7e_send_email( $cf7e_name, $cf7e_email, $cf7e_subject, $cf7e_message  );
+
+		// If email sent
+		if ( ! empty( $is_email_sent ) ) {
+			$response['code'] = 200;
+			$response['success'] = true;
+		} else {
+			// If posts not found.
+			$error->add( 406, __( 'Error while sending email', 'contact-form-7-endpoints' ) );
+			return $error;
 		}
 
-//		$response_received_after_saving_into_database = ...;
-
-		// If data saved into database.
-//		if ( ! is_wp_error( $response_received_after_saving_into_database ) && ! empty( $response_received_after_saving_into_database ) ) {
-//			$response['code'] = 200;
-//			$response['success'] = true;
-//		} else {
-//			// If posts not found.
-//			$error->add( 406, __( 'Error registration could not be submitted', 'contact-form-7-endpoints' ) );
-//			return $error;
-//		}
-
 		return new WP_REST_Response( $response );
+	}
+
+	function cf7e_send_email( $name, $email, $subject, $body ){
+
+		$email_recipient = get_option("admin_email");
+		$email_subject = "New enquiry | $subject";
+
+		$email_body = "From: $name <$email>\n";
+		$email_body .= "Subject: $subject\n";
+		$email_body .= $body;
+
+		return wp_mail( $email_recipient, $email_subject, $email_body );
 	}
 
 }
