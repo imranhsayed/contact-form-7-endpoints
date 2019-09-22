@@ -4,6 +4,9 @@
 
 * :bust_in_silhouette: Enquiry Form Endpoint
 
+## Demo:
+![](demo.gif)
+
 ## Register a new user endpoint:
 
 When we access the end point on URI: `http://example.com/wp-json/cf7e/v1/enquiry`,

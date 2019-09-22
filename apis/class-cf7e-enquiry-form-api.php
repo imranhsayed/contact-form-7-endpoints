@@ -107,7 +107,7 @@ class CF7E_Register_Form_Api {
 
 		// If email sent
 		if ( ! empty( $is_email_sent ) ) {
-			$response['code'] = 200;
+			$response['status'] = 200;
 			$response['success'] = true;
 		} else {
 			// If posts not found.
